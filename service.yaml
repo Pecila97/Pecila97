@@ -1,0 +1,13 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-app-service
+spec:
+  selector:
+    app: simple-app
+  ports:
+    - name: simple-app-port
+      port: 80
+      targetPort: 80
+  type: ClusterIP
