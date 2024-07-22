@@ -19,3 +19,14 @@ spec:
         ports:
         - containerPort: 80
           name: simple-port-2
+        volumeMounts:
+        - name: sc-store-02
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+      volumes:
+        - name: sc-store-02
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "sc-provider-02"

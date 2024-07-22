@@ -29,4 +29,5 @@ spec:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
+            #define sc provider to be used
               secretProviderClass: "azure-kvname-user-msi-01"
