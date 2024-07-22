@@ -7,7 +7,7 @@ spec:
   selector:
     app: simple-app-2
   ports:
-    - name: simple-app-port-2
+    - name: simple-port-2
       port: 80
       targetPort: 80
   type: ClusterIP

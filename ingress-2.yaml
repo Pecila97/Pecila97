@@ -4,6 +4,7 @@ metadata:
   name: ingress-2
   annotations:
     spec.ingressClassName: azure/application-gateway
+    appgw.ingress.kubernetes.io/override-frontend-port: "8080"
 spec:
   rules:
   - http:
@@ -12,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: service-2
+            name: simple-app-service-2
             port:
               number: 80

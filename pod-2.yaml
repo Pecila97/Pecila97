@@ -18,4 +18,4 @@ spec:
         image: pnsmiling/phong
         ports:
         - containerPort: 80
-          name: simple-app-port-2
+          name: simple-port-2
