@@ -2,9 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-app
+  name: simple-app-03
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: simple-app
@@ -13,21 +13,29 @@ spec:
       labels:
         app: simple-app
     spec:
+      nodeSelector:
+        environment: production
       containers:
       - name: simple-app
         image: pnsmiling/phong
         ports:
         - containerPort: 80
           name: simple-app-port
-        volumeMounts:
-        - name: secrets-store01-inline-2
+        resources:
+            requests:
+              cpu: "1"
+              memory: "150Mi"
+            limits:
+              cpu: "2"
+              memory: "250Mi"
+        volumeMounts: 
+        - name: sc-store-01
           mountPath: "/mnt/secrets-store"
           readOnly: true
       volumes:
-        - name: secrets-store01-inline-2
+        - name: sc-store-01
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-            #define sc provider to be used
-              secretProviderClass: "azure-kvname-user-msi-01"
+              secretProviderClass: "sc-provider-env"

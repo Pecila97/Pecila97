@@ -1,0 +1,55 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-k8s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-k8s
+  template:
+    metadata:
+      labels:
+        app: simple-k8s
+    spec:
+      nodeSelector:
+      #node lable
+        environment: production
+      containers:
+      - name: k8s-app
+        image: pnsmiling/phong
+        ports:
+        - containerPort: 80
+          name: k8s-port
+        volumeMounts:
+        - name: sc-store-02
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+        env:
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef: 
+                name: sc-store-02
+                key: secret2
+      volumes:
+        - name: sc-store-02
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "sc-provider-env"
+---
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-k8s-service
+spec:
+  selector:
+    app: simple-k8s
+  ports:
+    - name: simple-service-port-02
+      port: 80
+      targetPort: 80
+  type: ClusterIP

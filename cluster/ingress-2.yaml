@@ -1,0 +1,24 @@
+#use addon-http-application-routing 
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-01
+  #annotations:
+  #  kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts: 
+    - helloworld2.local.host
+    secretName: local-secret
+  rules:
+  - host: helloworld2.local.host
+    http:
+      paths:
+      - backend:
+          service:
+            name: simple-app-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
