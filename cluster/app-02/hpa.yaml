@@ -17,13 +17,13 @@ spec:
         type: Utilization
         # scale up if usage is above
         # 99% of the requested CPU (100m)
-        averageUtilization: 80
+        averageUtilization: 99
   - type: Resource
     resource:
       name: memory
       target:
         type: Utilization
-        averageUtilization: 80
+        averageUtilization: 99
   #Custom metrics
   #- type: Pods
   #  pods:
