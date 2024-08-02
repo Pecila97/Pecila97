@@ -23,10 +23,10 @@ spec:
           name: app-02-port
         resources:
             requests:
-              cpu: "1"
+              cpu: "0.5"
               memory: "150Mi"
             limits:
-              cpu: "2"
+              cpu: "1"
               memory: "250Mi"
         volumeMounts: 
         - name: sc-store-01
