@@ -20,4 +20,10 @@ spec:
           objectName: secret1
           objectType: secret              
           objectVersion: ""            
-    tenantId: "b3dc8175-7891-4b01-9e44-8e18fa4277f0"                
+    tenantId: "b3dc8175-7891-4b01-9e44-8e18fa4277f0"
+
+    namespace Auvenir.Common.Services
+{
+    public static class Startup
+    {}
+}
