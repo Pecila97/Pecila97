@@ -14,7 +14,7 @@ spec:
         app: app-02-deploy
     spec:
       nodeSelector:
-        environment: production
+        environment: devfe
       containers:
       - name: app-02
         image: pnsmiling/phong
