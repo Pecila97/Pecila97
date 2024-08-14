@@ -14,6 +14,7 @@ spec:
         app: app-02-deploy
     spec:
       nodeSelector:
+        managedBy: Devops
         environment: devfe
       containers:
       - name: app-02
