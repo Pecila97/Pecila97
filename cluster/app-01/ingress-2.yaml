@@ -7,10 +7,10 @@ metadata:
   #  kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts: 
-    - helloworld2.local.host
-    secretName: local-secret
+  #tls:
+  #- hosts: 
+  #  - helloworld2.local.host
+  #  secretName: local-secret
   rules:
   - host: helloworld2.local.host
     http:
