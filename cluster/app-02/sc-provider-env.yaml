@@ -7,8 +7,8 @@ spec:
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"          
-    userAssignedIdentityID: "4d72b591-1434-4731-ade6-28bc35bd8341" #ClientID
-    keyvaultName: "devops-kv-03"      
+    userAssignedIdentityID: "9b944839-bce4-499b-a302-ccbafe751528" #ClientID
+    keyvaultName: "devops-vault-03"      
     cloudName: ""                         
     objects:  |
       array:
