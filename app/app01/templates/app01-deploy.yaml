@@ -1,0 +1,43 @@
+{{- if (eq .Values.deployment "deployment") -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "demoapp.fullname" . }}
+spec:
+  replicas: {{ .Values.deployment.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ include "mychart.fullname" . }}-{{ .Values.deployment.name }}
+  template:
+    metadata:
+      labels:
+        {{- include "demoapp.labels" . | nindent 4 }}
+    spec:
+      nodeSelector:
+        managedBy: {{ .Values.deployment.nodeSelector.managedBy }}
+        environment: {{ .Values.deployment.nodeSelector.environment }}
+      containers:
+        - name: {{ .Values.deployment.container.name }}
+          image: {{ .Values.deployment.container.image }}
+          ports:
+            - containerPort: {{ .Values.deployment.container.port }}
+              name: {{ .Values.deployment.container.portName }}
+          resources:
+            requests:
+              cpu: {{ .Values.deployment.container.resources.requests.cpu }}
+              memory: {{ .Values.deployment.container.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.deployment.container.resources.limits.cpu }}
+              memory: {{ .Values.deployment.container.resources.limits.memory }}
+          volumeMounts:
+            - name: sc-store-01
+              mountPath: /mnt/secrets-store
+              readOnly: true
+      volumes:
+        - name: sc-store-01
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ .Values.deployment.volumes.secretProviderClass }}
+{{- end }}
