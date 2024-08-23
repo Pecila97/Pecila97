@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: ./app/app01
+      chart: ./app/app01/templates
       sourceRef:
         kind: GitRepository
         name: helm-demo
