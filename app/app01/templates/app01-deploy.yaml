@@ -7,7 +7,7 @@ spec:
   replicas: {{ .Values.deployment.replicas | default 1 }}
   selector:
     matchLabels:
-      app: {{ include "mychart.fullname" . }}-{{ .Values.deployment.name }}
+      app: {{ include "demoapp.fullname" . }}-{{ .Values.deployment.name }}
   template:
     metadata:
       labels:
@@ -17,27 +17,19 @@ spec:
         managedBy: {{ .Values.deployment.nodeSelector.managedBy }}
         environment: {{ .Values.deployment.nodeSelector.environment }}
       containers:
-        - name: {{ .Values.deployment.container.name }}
-          image: {{ .Values.deployment.container.image }}
+        - name: {{ include "demoapp.fullname" . }}
+          image: "{{ .Values.deployment.container.image.repo }}:{{.Values.deployment.container.image.tag}}"
           ports:
-            - containerPort: {{ .Values.deployment.container.port }}
-              name: {{ .Values.deployment.container.portName }}
+            - containerPort: {{ .Values.deployment.container.port.containerPort }}
+              name: {{ .Values.deployment.container.port.name }}
           resources:
-            requests:
-              cpu: {{ .Values.deployment.container.resources.requests.cpu }}
-              memory: {{ .Values.deployment.container.resources.requests.memory }}
-            limits:
-              cpu: {{ .Values.deployment.container.resources.limits.cpu }}
-              memory: {{ .Values.deployment.container.resources.limits.memory }}
+            {{- toYaml .Values.resources | nindent 6 }}
+          {{- with .Values.volumeMounts }}
           volumeMounts:
-            - name: sc-store-01
-              mountPath: /mnt/secrets-store
-              readOnly: true
+            {{- toYaml . | nindent 6 }}
+          {{- end }}
+      {{- with .Values.volumes }}
       volumes:
-        - name: sc-store-01
-          csi:
-            driver: secrets-store.csi.k8s.io
-            readOnly: true
-            volumeAttributes:
-              secretProviderClass: {{ .Values.deployment.volumes.secretProviderClass }}
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
 {{- end }}

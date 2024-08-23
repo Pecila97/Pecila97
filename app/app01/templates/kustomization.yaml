@@ -1,8 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - hpa.yaml
-  - pod.yaml
-  - ingress-2.yaml
-  - sc-provider-env.yaml
-  - service.yaml
+  - app01-hpa.yaml
+  - app01-deploy.yaml
+  - app01-ingress.yaml
+  - app01-sc-provider.yaml
+  - app01-svc.yaml
+  - _helpers.tpl
