@@ -6,6 +6,3 @@ resources:
   - app01-ingress.yaml
   - app01-sc-provider.yaml
   - app01-svc.yaml
-  - _helpers.tpl
-  - Chart.yaml
-  - values.yaml
